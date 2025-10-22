@@ -41,16 +41,16 @@ jobs:
         run: |
           pytest
 
-      # # 6️⃣ Create PR to main only if dev is ahead
+      # 6️⃣ Auto PR to main
       # - name: Create Pull Request to main
-      #   if: success()  # Only if tests pass
+      #   if: success()
       #   uses: peter-evans/create-pull-request@v5
       #   with:
-      #     token: ${{ secrets.MY_GITHUB_TOKEN }}
+      #     token: ${{ secrets.MY_GITHUB_TOKEN }}   # Built-in token is enough
       #     commit-message: "Auto PR: dev → main"
       #     title: "Merge dev into main"
       #     body: "Automated PR created after successful dev workflow"
       #     base: main
       #     branch: dev
-      #     create-branch: false   # Use existing dev branch
+      #     create-branch: false
       #     labels: "auto-pr"

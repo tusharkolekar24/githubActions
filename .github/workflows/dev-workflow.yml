@@ -54,3 +54,12 @@ jobs:
       #     branch: dev
       #     create-branch: false
       #     labels: "auto-pr"
+
+      - name: Print changed .txt, .sql, and .html files
+        run: |
+          echo "Changed files:"
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }} \
+            | grep -E '\.(txt|sql|html)$' \
+            | while read file; do
+                echo "$file"
+              done

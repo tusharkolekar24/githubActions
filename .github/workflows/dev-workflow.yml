@@ -54,12 +54,15 @@ jobs:
       #     branch: dev
       #     create-branch: false
       #     labels: "auto-pr"
-
       - name: Print changed .txt, .sql, and .html files
         run: |
-          echo "Changed files:"
-          git diff --name-only ${{ github.event.before }} ${{ github.sha }} \
+            echo "Changed files:"
+            if [ "${{ github.event_name }}" = "pull_request" ]; then
+               git diff --name-only origin/${{ github.base_ref }}...HEAD
+            else
+                git diff --name-only HEAD~1 HEAD
+            fi \
             | grep -E '\.(txt|sql|html)$' \
             | while read file; do
-                echo "$file"
-              done
+                 echo "$file"
+              done || echo "No matching files changed"

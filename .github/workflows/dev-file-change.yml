@@ -1,0 +1,42 @@
+name: Dev Branch File Change Logger
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  list-changed-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout full git history
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2️⃣ Print changed files (with debug)
+      - name: Print changed .txt, .sql, and .html files
+        run: |
+          echo "================================="
+          echo "Event name: ${{ github.event_name }}"
+          echo "Changed files:"
+          echo "================================="
+
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.sha }}"
+
+          echo "Before commit: $BEFORE"
+          echo "After commit:  $AFTER"
+          echo "---------------------------------"
+          echo "ALL changed files:"
+          git diff --name-only "$BEFORE" "$AFTER" || true
+
+          echo "---------------------------------"
+          echo "Filtered (.txt, .sql, .html):"
+          git diff --name-only "$BEFORE" "$AFTER" \
+            | grep -Ei '\.(txt|sql|html)$' \
+            | while read -r file; do
+                echo "$file"
+              done || echo "No matching files changed"

@@ -38,19 +38,22 @@ jobs:
 
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
-            COMMIT_MSG="${{ github.event.pull_request.title }}"
           else
             CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
-            COMMIT_MSG="$(git log -1 --pretty=%B)"
           fi
 
-          echo "Commit message:"
-          echo "$COMMIT_MSG"
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+
+          echo "---------------------------------"
+          echo "Running validation..."
           echo "---------------------------------"
 
           for file in $CHANGED_FILES; do
             if [[ "$file" =~ \.(txt|sql|html|py)$ ]]; then
               echo "Validating: $file"
-              python tests/validation_test.py "$file" "$COMMIT_MSG"
+              python tests/validation_test.py "$file"
+            else
+              echo "Skipping unsupported file: $file"
             fi
           done

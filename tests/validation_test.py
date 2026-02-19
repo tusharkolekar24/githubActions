@@ -14,14 +14,18 @@ def main():
 
     file_path = sys.argv[1]
     message   = sys.argv[2]
-    validate_txt(file_path, message)
+    # validate_txt(file_path, message)
+    print("---------------------------------------------------------------")
+    print("Selected File: {}".format(file_path))
     status = "Fail to send data to Oracle APEX"
     if "cni" in message.lower():
         metadata = extract_metadata(file_path, message)
-        payload = sql_payload(metadata)
-        status = send_data_to_apex(payload)
-        print(status)
+        payload  = sql_payload(metadata)
+        print("Payload to be sent to Oracle APEX: {}".format(payload))
+        status   = send_data_to_apex(payload)
+
     print("SQL Payload Status:{}".format(status))
-    
+    print("---------------------------------------------------------------\n")
+
 if __name__ == "__main__":
     main()

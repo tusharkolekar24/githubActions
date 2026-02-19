@@ -28,12 +28,16 @@ def send_data_to_apex(payload):
     return status_messages
 
 def sql_payload(metadata):
-    payload = {
-      "cni": metadata['cni'],
-      "file_name": metadata['filename'],
-      "file_subfolder": metadata['file_subfolder'],
-      "file_extension": metadata['filetype'],
-      "message":metadata['filename'],
+    payload ={
+    "files":[
+            {
+                "cni": metadata['cni'],
+                "file_name": metadata['filename'],
+                "file_subfolder": metadata['file_subfolder'],
+                "file_extension": metadata['filetype'],
+                "message":metadata['filename'],
+            }
+        ]
     }
     return payload
 
@@ -43,7 +47,7 @@ def extract_metadata(file_path,messages):
     file_subfolder = file_path.split("/")[0]
     file_extension = '.'+file_path.split("/")[-1].split(".")[-1]
     filename       = file_path.split("/")[-1]
-    
+
     # 🔹 Create metadata dictionary
     metadata = {
         "cni": cni,

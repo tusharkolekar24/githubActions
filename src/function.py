@@ -43,7 +43,7 @@ def sql_payload(metadata):
 
 def extract_metadata(file_path,messages):
     
-    cni = int(messages.split(" ")[0].lower().replace("cni",""))
+    cni = int(messages.split(" ")[0].lower().replace("cni-",""))
     file_subfolder = file_path.split("/")[0]
     file_extension = '.'+file_path.split("/")[-1].split(".")[-1]
     filename       = file_path.split("/")[-1]

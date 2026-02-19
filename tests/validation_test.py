@@ -1,5 +1,6 @@
 import sys
 import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 def validate_txt(file_path):
     print(f"Checking TXT file: {file_path}")

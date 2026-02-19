@@ -30,7 +30,7 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
       # 2️⃣ Print changed files (with debug)
-      - name: Print changed .txt, .sql, and .html, .py files
+      - name: Print changed .txt, .sql, and .html, .py, .yml files
         run: |
           echo "================================="
           echo "Event name: ${{ github.event_name }}"
@@ -47,9 +47,9 @@ jobs:
           git diff --name-only "$BEFORE" "$AFTER" || true
 
           echo "---------------------------------"
-          echo "Filtered (.txt, .sql, .html, .py):"
+          echo "Filtered (.txt, .sql, .html, .py, .yml):"
           git diff --name-only "$BEFORE" "$AFTER" \
-            | grep -Ei '\.(txt|sql|html|py)$' \
+            | grep -Ei '\.(txt|sql|html|py|yml)$' \
             | while read -r file; do
                 echo "$file"
               done || echo "No matching files changed"

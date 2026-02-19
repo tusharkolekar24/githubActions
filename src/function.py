@@ -32,10 +32,10 @@ def sql_payload(metadata):
     "files":[
             {
                 "cni": metadata['cni'],
-                "file_name": metadata['filename'],
+                "file_name": metadata['file_name'],
                 "file_subfolder": metadata['file_subfolder'],
-                "file_extension": metadata['filetype'],
-                "message":metadata['filename'],
+                "file_extension": metadata['file_extension'],
+                "message":metadata['message'],
             }
         ]
     }

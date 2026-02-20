@@ -49,7 +49,7 @@ jobs:
           echo "---------------------------------"
 
           for file in $CHANGED_FILES; do
-            if [[ "$file" =~ \.(txt|sql|html|py)$ ]]; then
+            if [[ "$file" =~ \.(txt|sql|html|py|sh|fmb)$ ]]; then
               echo "Validating: $file"
               python tests/validation_test.py "$file" "$COMMIT_MSG"
             fi
